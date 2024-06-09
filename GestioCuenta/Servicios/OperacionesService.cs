@@ -1,13 +1,13 @@
 ﻿using AccesoDatos;
 using Comunes.Parametros;
 using Comunes.Respuesta;
-using Dapper;
 using Cuenta.Modelos;
 using Cuenta.Servicios.Interfaces;
+using Dapper;
 
 namespace Cuenta.Servicios;
 
-public class OperacionesService: IOperacion
+public class OperacionesService : IOperacion
 {
     private BD bd;
     public OperacionesService(BD bd)
@@ -89,7 +89,7 @@ public class OperacionesService: IOperacion
 
     public List<TipoOperacion> OptenerTipoOperacion()
     {
-        return  new List<TipoOperacion>
+        return new List<TipoOperacion>
         {
             new TipoOperacion { valor = (int)TipoOperacionEnum.CREDITO, descripcion = TipoOperacionEnum.CREDITO.ToString() },
             new TipoOperacion { valor = (int)TipoOperacionEnum.DEBITO, descripcion = TipoOperacionEnum.DEBITO.ToString() }

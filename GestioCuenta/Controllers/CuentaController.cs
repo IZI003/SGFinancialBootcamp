@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using Cuenta.Modelos;
-
-using Comunes.Config;
+﻿using Comunes.Config;
 using Comunes.Respuesta;
-using Microsoft.AspNetCore.Authorization;
+using Cuenta.Modelos;
 using Cuenta.Servicios.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cuenta.Controllers
 {

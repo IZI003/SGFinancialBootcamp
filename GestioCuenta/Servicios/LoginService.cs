@@ -1,13 +1,12 @@
 ﻿using AccesoDatos;
 using Comunes.Respuesta;
-using Dapper;
 using Cuenta.Modelos;
-
+using Cuenta.Servicios.Interfaces;
+using Dapper;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using Cuenta.Servicios.Interfaces;
 
 namespace Cuenta.Servicios;
 
@@ -44,7 +43,7 @@ public class LoginService : ILogin
 
             var claims = new ClaimsIdentity();
 
-            claims.AddClaim(new Claim (ClaimTypes.NameIdentifier, user.nombre));
+            claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.nombre));
             claims.AddClaim(new Claim(ClaimTypes.NameIdentifier, jwt.Subject.ToString()));
             claims.AddClaim(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
             claims.AddClaim(new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()));
@@ -56,7 +55,7 @@ public class LoginService : ILogin
             {
                 Subject = claims,
                 Expires = DateTime.UtcNow.AddMinutes(jwt.expiracion),
-                SigningCredentials= signin
+                SigningCredentials = signin
             };
             var tokenConfig = new JwtSecurityTokenHandler().CreateToken(tomkemDescriptor);
 
@@ -80,7 +79,7 @@ public class LoginService : ILogin
     public async Task<RespuestaBD> CrearUsuario(EntradaUsuario entradaUsuario)
     {
         try
-        { 
+        {
             using var con = bd.ObtenerConexion();
             await con.QueryAsync($"Insert into usuario ( nombre,usuario,password) values ({entradaUsuario.nombre},{entradaUsuario.usuario}, {entradaUsuario.password})");
 

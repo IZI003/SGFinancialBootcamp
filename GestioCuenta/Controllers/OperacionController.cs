@@ -1,11 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using Comunes.Config;
+﻿using Comunes.Config;
 using Comunes.Respuesta;
-
 using Cuenta.Modelos;
 using Cuenta.Servicios.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Cuenta.Controllers
 {
@@ -56,7 +54,7 @@ namespace Cuenta.Controllers
 
             if (!salida.respuestaBD.Ok)
             {
-                response.Resultado.AgregarError(GestionErrores.O_Men_2001 , 400, mensaje: salida.respuestaBD.Mensaje, codigoInterno: GestionErrores.O_Cod_2001);
+                response.Resultado.AgregarError(GestionErrores.O_Men_2001, 400, mensaje: salida.respuestaBD.Mensaje, codigoInterno: GestionErrores.O_Cod_2001);
 
                 return response.ObtenerResult();
             }
@@ -66,7 +64,7 @@ namespace Cuenta.Controllers
             return Ok(response);
         }
 
-        [HttpGet("operaciones/{idCuenta}")] 
+        [HttpGet("operaciones/{idCuenta}")]
         public async Task<IActionResult> ObtenerOperacionesCuenta(int idCuenta)
         {
             var response = new RespuestaApi<IEnumerable<OperacionesCuenta>>();

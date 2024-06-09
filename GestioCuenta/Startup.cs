@@ -1,14 +1,11 @@
-﻿using System.Text;
-
+﻿using AccesoDatos;
+using Cuenta.Modelos;
+using Cuenta.Servicios;
+using Cuenta.Servicios.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-
-using AccesoDatos;
-
-using Cuenta.Servicios;
-using Cuenta.Servicios.Interfaces;
-using Cuenta.Modelos;
+using System.Text;
 
 namespace Cuenta;
 

@@ -1,10 +1,8 @@
 ﻿namespace AccesoDatos.DBConfig;
 
-using System.Data.Common;
-
-using Microsoft.Extensions.Configuration;
-
 using AccesoDatos.Excepciones;
+using Microsoft.Extensions.Configuration;
+using System.Data.Common;
 
 public class BDConfig
 {
@@ -76,9 +74,9 @@ public class BDConfig
 
     public string CrearStringConexion()
     {
-        var builder = new DbConnectionStringBuilder 
+        var builder = new DbConnectionStringBuilder
         {
-            ConnectionString =$"{VariablesConectionEnum.server}={DataSource};{VariablesConectionEnum.Database}={Database};{ VariablesConectionEnum.user } ={Usuario} ;{VariablesConectionEnum.password}={Password};",
+            ConnectionString = $"{VariablesConectionEnum.server}={DataSource};{VariablesConectionEnum.Database}={Database};{VariablesConectionEnum.user} ={Usuario} ;{VariablesConectionEnum.password}={Password};",
         };
 
         return builder.ConnectionString;
@@ -87,8 +85,8 @@ public class BDConfig
 }
 public enum VariablesConectionEnum
 {
-    user=1,
+    user = 1,
     password = 2,
-    server=3,
-    Database=4
+    server = 3,
+    Database = 4
 }

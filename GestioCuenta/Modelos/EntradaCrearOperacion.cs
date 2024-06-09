@@ -4,7 +4,7 @@ namespace Cuenta.Modelos;
 
 public class EntradaCrearOperacion
 {
-   public int idCuenta { get; set; }
+    public int idCuenta { get; set; }
     public int idConcepto { get; set; }
     public decimal monto { get; set; }
 }
@@ -24,6 +24,6 @@ public class TipoOperacion
 
 public class SalidaConcepto
 {
-    public List<Concepto> listaConceptos{ get; set; }
+    public List<Concepto> listaConceptos { get; set; }
     public RespuestaBD respuestaBD { get; set; }
 }

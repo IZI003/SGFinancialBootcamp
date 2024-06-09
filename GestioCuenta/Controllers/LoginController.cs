@@ -1,7 +1,6 @@
 ﻿using Comunes.Config;
 using Comunes.Respuesta;
 using Cuenta.Modelos;
-using Cuenta.Servicios;
 using Cuenta.Servicios.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,17 +19,17 @@ namespace Cuenta.Controllers
         {
             this.loginService = loginService;
         }
-       
+
         [HttpPost("oauth")]
-        public async Task<IActionResult> GetLogin([FromBody] EntradaLogin entradaLogin) 
+        public async Task<IActionResult> GetLogin([FromBody] EntradaLogin entradaLogin)
         {
             var response = new RespuestaApi<UsuarioLogin>();
-             
-            var salida =await loginService.login(entradaLogin);
-            
+
+            var salida = await loginService.login(entradaLogin);
+
             if (!salida.respuestaBD.Ok)
             {
-               response.Resultado.AgregarError(GestionErrores.L_Men_3000, 400, mensaje: salida.respuestaBD.Mensaje, codigoInterno: GestionErrores.L_Cod_3000);
+                response.Resultado.AgregarError(GestionErrores.L_Men_3000, 400, mensaje: salida.respuestaBD.Mensaje, codigoInterno: GestionErrores.L_Cod_3000);
 
                 return response.ObtenerResult();
             }
@@ -41,7 +40,7 @@ namespace Cuenta.Controllers
 
         [Authorize]
         [HttpPost]
-        public async Task<IActionResult> CrearUsuario([FromBody]  EntradaUsuario entradaUsuario)
+        public async Task<IActionResult> CrearUsuario([FromBody] EntradaUsuario entradaUsuario)
         {
             var response = new RespuestaApi<RespuestaBD>();
 

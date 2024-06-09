@@ -20,7 +20,7 @@ namespace Comunes.Respuesta
                 AgregarErrorBaseDatos(resultadoBD);
             }
         }
-        
+
         public string Mensaje { get; set; }
         public string CodigoError { get; set; }
         public bool Error => !Ok || !string.IsNullOrEmpty(CodigoError);
@@ -55,9 +55,9 @@ namespace Comunes.Respuesta
                 CodigoError = split[0];
                 Mensaje = split[1];
             }
-            catch(IndexOutOfRangeException ex)
+            catch (IndexOutOfRangeException ex)
             {
-                throw new GestioCuentaExcepcion(ex, 
+                throw new GestioCuentaExcepcion(ex,
                     descripcion: $"Código de error de base de datos en formato incorrecto ({error})");
             }
         }

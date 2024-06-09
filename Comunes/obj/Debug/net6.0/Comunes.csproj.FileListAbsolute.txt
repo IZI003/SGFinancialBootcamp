@@ -10,15 +10,3 @@ C:\Users\herny\Documents\Proyecto Emprender\SGFinancial\Comunes\obj\Debug\net6.0
 C:\Users\herny\Documents\Proyecto Emprender\SGFinancial\Comunes\obj\Debug\net6.0\refint\Comunes.dll
 C:\Users\herny\Documents\Proyecto Emprender\SGFinancial\Comunes\obj\Debug\net6.0\Comunes.pdb
 C:\Users\herny\Documents\Proyecto Emprender\SGFinancial\Comunes\obj\Debug\net6.0\ref\Comunes.dll
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\bin\Debug\net6.0\Comunes.deps.json
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\bin\Debug\net6.0\Comunes.dll
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\bin\Debug\net6.0\Comunes.pdb
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\obj\Debug\net6.0\Comunes.csproj.AssemblyReference.cache
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\obj\Debug\net6.0\Comunes.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\obj\Debug\net6.0\Comunes.AssemblyInfoInputs.cache
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\obj\Debug\net6.0\Comunes.AssemblyInfo.cs
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\obj\Debug\net6.0\Comunes.csproj.CoreCompileInputs.cache
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\obj\Debug\net6.0\Comunes.dll
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\obj\Debug\net6.0\refint\Comunes.dll
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\obj\Debug\net6.0\Comunes.pdb
-C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\Comunes\obj\Debug\net6.0\ref\Comunes.dll

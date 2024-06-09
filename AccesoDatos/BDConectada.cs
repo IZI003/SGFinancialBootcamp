@@ -1,9 +1,8 @@
 ﻿namespace AccesoDatos;
 
-using System.Data.SqlClient;
-
 using AccesoDatos.Conexiones;
 using AccesoDatos.Excepciones;
+using System.Data.SqlClient;
 
 public class BDConectada : BD, IDisposable
 {
@@ -21,7 +20,7 @@ public class BDConectada : BD, IDisposable
         }
         catch (SqlException ex)
         {
-           throw new AccesoDatosException("Error al conectar a base de datos", ex);
+            throw new AccesoDatosException("Error al conectar a base de datos", ex);
         }
     }
 

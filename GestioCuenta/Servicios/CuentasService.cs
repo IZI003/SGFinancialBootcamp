@@ -1,12 +1,9 @@
-﻿using System.Data;
-
-using Dapper;
-
-using AccesoDatos;
+﻿using AccesoDatos;
 using Comunes.Respuesta;
-
 using Cuenta.Modelos;
 using Cuenta.Servicios.Interfaces;
+using Dapper;
+using System.Data;
 
 namespace Cuenta.Servicios;
 
@@ -27,7 +24,7 @@ public class CuentasService : ICuenta
                         FROM cuenta WHERE id_cuenta = @idCuenta";
 
             using var con = bd.ObtenerConexion();
-            salida.saldo = (SaldoDto?)await con.QueryAsync< SaldoDto>(query, new { idCuenta });
+            salida.saldo = (SaldoDto?)await con.QueryAsync<SaldoDto>(query, new { idCuenta });
 
             if (salida.saldo == null)
             {
@@ -37,13 +34,13 @@ public class CuentasService : ICuenta
             }
 
             salida.RespuestaBD = new RespuestaBD("OK");
-           
+
             return salida;
         }
         catch (Exception ex)
         {
             salida.RespuestaBD = new RespuestaBD($"ERROR|Error al consultar los datos. {ex.Message}");
-         
+
             return salida;
         }
     }
@@ -82,11 +79,11 @@ public class CuentasService : ICuenta
             }
             salida.saldoTotal = new SaldoTotal();
             salida.saldoTotal.cuentas = (from s in saldodb
-                               select new SaldoDto
-                               {
-                                   Cuenta= s.Cuenta,
-                                   Saldo= s.Saldo
-                               }).ToList();
+                                         select new SaldoDto
+                                         {
+                                             Cuenta = s.Cuenta,
+                                             Saldo = s.Saldo
+                                         }).ToList();
 
             salida.saldoTotal.saldoTotal = saldodb.FirstOrDefault().saldoTotal;
 
@@ -114,7 +111,7 @@ public class CuentasService : ICuenta
             }
 
             await con.QueryAsync($"Insert into cuenta (saldo,id_usuario) values (0,{idUsuario})");
-            
+
             return new RespuestaBD("OK");
         }
         catch (Exception ex)
