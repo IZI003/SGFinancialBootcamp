@@ -14,3 +14,15 @@ public class UsuarioLogin
     public string nombre { get; set; }
     public string token { get; set; }
 }
+
+public class EntradaLogin
+{
+    public string usuario { get; set; }
+    public string password { get; set; }
+}
+public class EntradaUsuario
+{
+    public string nombre { get; set; }
+    public string usuario { get; set; }
+    public string password { get; set; }
+}

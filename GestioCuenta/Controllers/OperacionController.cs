@@ -5,9 +5,11 @@ using Comunes.Respuesta;
 
 using Cuenta.Modelos;
 using Cuenta.Servicios.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Cuenta.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OperacionController : Controller

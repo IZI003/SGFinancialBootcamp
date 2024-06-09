@@ -5,10 +5,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 using AccesoDatos;
-using Comunes.Config;
 
 using Cuenta.Servicios;
 using Cuenta.Servicios.Interfaces;
+using Cuenta.Modelos;
 
 namespace Cuenta;
 

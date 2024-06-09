@@ -25,8 +25,9 @@ public class OperacionesService: IOperacion
                                     FROM cuenta cta 
                                    INNER JOIN concepto concep ON (concep.id_concepto = @idConcepto)
                                     WHERE cta.id_cuenta = @idCuenta";
-
             using var con = bd.ObtenerConexion();
+            con.Open();
+
             var validador = await con.QueryFirstOrDefaultAsync<validadorCuenta>(queryValidador, new { entradaOperacion.idCuenta, entradaOperacion.idConcepto });
 
             if (validador == null || entradaOperacion.monto <= 0)
@@ -46,37 +47,36 @@ public class OperacionesService: IOperacion
                 return salida;
             }
 
-            using (var transaction = con.BeginTransaction())
+            using var transaction = con.BeginTransaction();
+
+            try
             {
-                try
-                {
-                    var queryInsertOperacion = @"INSERT INTO operacion (id_concepto,monto,saldo_actual,id_cuenta,fecha ) 
+                var queryInsertOperacion = @"INSERT INTO operacion (id_concepto,monto,saldo_actual,id_cuenta,fecha ) 
                                         VALUES (@idConcepto,@monto,@saldo,@idCuenta,GETDATE())";
 
-                    await con.ExecuteAsync(queryInsertOperacion, new
-                    {
-                        entradaOperacion.idConcepto,
-                        entradaOperacion.monto,
-                        saldo,
-                        entradaOperacion.idCuenta
-                    }, transaction);
+                await con.ExecuteAsync(queryInsertOperacion, new
+                {
+                    entradaOperacion.idConcepto,
+                    entradaOperacion.monto,
+                    saldo,
+                    entradaOperacion.idCuenta
+                }, transaction);
 
-                    var queryUpdateCuenta = @"UPDATE cuenta
+                var queryUpdateCuenta = @"UPDATE cuenta
                                         SET saldo = @saldo 
                                         WHERE id_cuenta = @idCuenta;";
 
-                    await con.ExecuteAsync(queryUpdateCuenta, new { saldo, entradaOperacion.idCuenta }, transaction);
+                await con.ExecuteAsync(queryUpdateCuenta, new { saldo, entradaOperacion.idCuenta }, transaction);
 
-                    transaction.Commit();
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-
-                    return new RespuestaBD("Error|Existen problemas al Crear Operacion");
-                }
+                transaction.Commit();
             }
-          
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+
+                return new RespuestaBD("Error|Existen problemas al Crear Operacion");
+            }
+
             salida = new RespuestaBD("OK");
         }
         catch (Exception ex)

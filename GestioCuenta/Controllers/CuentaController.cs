@@ -40,7 +40,7 @@ namespace Cuenta.Controllers
         [HttpGet("saldo-total/{idusuario}")]
         public async Task<IActionResult> GetSaldoUsuario(int idusuario)
         {
-            var response = new RespuestaApi<decimal>();
+            var response = new RespuestaApi<SaldoTotal>();
             var salida = await CuentaServices.ObtenerSaldoIdUsuario(idusuario);
 
             if (!salida.RespuestaBD.Ok)
@@ -49,7 +49,7 @@ namespace Cuenta.Controllers
 
                 return response.ObtenerResult();
             }
-            response.Resultado.Datos = salida.saldo;
+            response.Resultado.Datos = salida.saldoTotal;
             return Ok(response);
         }
 

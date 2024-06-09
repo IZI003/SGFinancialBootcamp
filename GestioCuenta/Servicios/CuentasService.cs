@@ -23,8 +23,6 @@ public class CuentasService : ICuenta
         var salida = new SalidaSaldo();
         try
         {
-
-
             var query = @"SELECT saldo,id_cuenta as cuenta 
                         FROM cuenta WHERE id_cuenta = @idCuenta";
 
@@ -64,19 +62,34 @@ public class CuentasService : ICuenta
                 return salida;
             }
 
-            var query = @"SELECT SUM(saldo) as saldo
-                          FROM cuenta WHERE id_usuario = @idUsuario";
+            var query = @"SELECT c.id_cuenta, c.saldo, c.id_usuario, total.saldoTotal
+                            FROM cuenta c
+                            JOIN (
+                                SELECT id_usuario, SUM(saldo) as saldoTotal
+                                FROM cuenta
+                                WHERE id_usuario = 1
+                                GROUP BY id_usuario
+                            ) as total ON c.id_usuario = total.id_usuario
+                            WHERE c.id_usuario = @idUsuario";
 
-            var saldo = await con.QueryAsync<decimal>(query, new { idUsuario });
+            var saldodb = await con.QueryAsync<SaldoBD>(query, new { idUsuario });
 
-            if (!saldo.Any())
+            if (!saldodb.Any())
             {
                 salida.RespuestaBD = new RespuestaBD("ERROR|Error al consultar saldos. No existen cuentas");
 
                 return salida;
             }
+            salida.saldoTotal = new SaldoTotal();
+            salida.saldoTotal.cuentas = (from s in saldodb
+                               select new SaldoDto
+                               {
+                                   Cuenta= s.Cuenta,
+                                   Saldo= s.Saldo
+                               }).ToList();
 
-            salida.saldo = saldo.FirstOrDefault();
+            salida.saldoTotal.saldoTotal = saldodb.FirstOrDefault().saldoTotal;
+
             salida.RespuestaBD = new RespuestaBD("OK");
 
             return salida;

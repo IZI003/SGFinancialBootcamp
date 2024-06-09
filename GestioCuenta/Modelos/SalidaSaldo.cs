@@ -16,7 +16,20 @@ namespace Cuenta.Modelos
 
     public class SalidaSaldoTotal
     {
-        public decimal saldo { get; set; }
+        public SaldoTotal saldoTotal { get; set; }
         internal RespuestaBD RespuestaBD { get; set; }
+    }
+
+    public class SaldoTotal
+    {
+        public List<SaldoDto> cuentas { get; set; }
+        public decimal saldoTotal { get; set; }
+    }
+
+    public class SaldoBD
+    {
+        public decimal Saldo { get; set; }
+        public int Cuenta { get; set; }
+        public decimal saldoTotal { get; set; }
     }
 }
