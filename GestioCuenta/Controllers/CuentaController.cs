@@ -1,13 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
 using Cuenta.Modelos;
-using Cuenta.Servicios;
 
 using Comunes.Config;
 using Comunes.Respuesta;
+using Microsoft.AspNetCore.Authorization;
+using Cuenta.Servicios.Interfaces;
 
 namespace Cuenta.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CuentaController : ControllerBase
@@ -27,7 +29,7 @@ namespace Cuenta.Controllers
 
             if (!salida.RespuestaBD.Ok)
             {
-                response.Resultado.AgregarError(GestionErrores.C_Men_1000, 403, mensaje: GestionErrores.C_Cod_1000, codigoInterno: GestionErrores.C_Cod_1000);
+                response.Resultado.AgregarError(GestionErrores.C_Men_1000, 403, mensaje: salida.RespuestaBD.Mensaje, codigoInterno: GestionErrores.C_Cod_1000);
 
                 return response.ObtenerResult();
             }
