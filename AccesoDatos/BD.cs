@@ -1,9 +1,7 @@
-﻿using System.Data.SqlClient;
-
-using Dapper;
-
-using AccesoDatos.Conexiones;
+﻿using AccesoDatos.Conexiones;
 using AccesoDatos.Excepciones;
+using Dapper;
+using System.Data.SqlClient;
 
 
 namespace AccesoDatos

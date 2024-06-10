@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Comunes.Config;
+﻿using Comunes.Config;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Comunes.Respuesta;
 

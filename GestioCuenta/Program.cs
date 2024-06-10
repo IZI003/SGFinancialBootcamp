@@ -1,29 +1,27 @@
-using AccesoDatos;
-using Cuenta.Servicios;
+using Cuenta;
+using Microsoft.AspNetCore;
 
-var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
-builder.Services.AddControllers();
-builder.Services.AgregarAccesoDatos();
-builder.Services.AddScoped<ICuenta, Cuentas>();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+public class Program
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    public static void Main(string[] args)
+    {
+        CreateWebHostBuilder(args).Build().Run();
+    }
+
+    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+        WebHost.CreateDefaultBuilder(args)
+            .ConfigureAppConfiguration((context, config) =>
+            {
+                config.SetBasePath(Directory.GetCurrentDirectory())
+                    .AddJsonFile("appsettings.json")
+                    .AddJsonFile($"appsettings.{context.HostingEnvironment.EnvironmentName}.json", true)
+                    .AddEnvironmentVariables();
+
+                if (context.HostingEnvironment.IsDevelopment())
+                {
+                    Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;
+                    config.AddUserSecrets<Program>();
+                }
+            })
+            .UseStartup<Startup>();
 }
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();

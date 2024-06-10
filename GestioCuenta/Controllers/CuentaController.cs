@@ -1,13 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
-
-using Cuenta.Modelos;
-using Cuenta.Servicios;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using Comunes.Config;
 using Comunes.Respuesta;
 
+using Cuenta.Modelos;
+using Cuenta.Servicios.Interfaces;
+
 namespace Cuenta.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CuentaController : ControllerBase
@@ -27,18 +29,25 @@ namespace Cuenta.Controllers
 
             if (!salida.RespuestaBD.Ok)
             {
-                response.Resultado.AgregarError(GestionErrores.C_Men_1000, 403, mensaje: GestionErrores.C_Cod_1000, codigoInterno: GestionErrores.C_Cod_1000);
+                response.Resultado.AgregarError(GestionErrores.C_Men_1000, 400, mensaje: salida.RespuestaBD.Mensaje, codigoInterno: GestionErrores.C_Cod_1000);
 
                 return response.ObtenerResult();
             }
+
+            if (salida.saldo == null)
+            {
+                return NoContent();
+            }
+
             response.Resultado.Datos = salida.saldo;
+
             return Ok(response);
         }
 
         [HttpGet("saldo-total/{idusuario}")]
         public async Task<IActionResult> GetSaldoUsuario(int idusuario)
         {
-            var response = new RespuestaApi<decimal>();
+            var response = new RespuestaApi<SaldoTotal>();
             var salida = await CuentaServices.ObtenerSaldoIdUsuario(idusuario);
 
             if (!salida.RespuestaBD.Ok)
@@ -47,7 +56,14 @@ namespace Cuenta.Controllers
 
                 return response.ObtenerResult();
             }
-            response.Resultado.Datos = salida.saldo;
+
+            if (!salida.saldoTotal.cuentas.Any())
+            {
+                return NoContent();
+            }
+
+            response.Resultado.Datos = salida.saldoTotal;
+
             return Ok(response);
         }
 

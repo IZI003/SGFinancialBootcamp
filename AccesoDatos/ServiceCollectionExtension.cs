@@ -1,9 +1,8 @@
 ﻿namespace AccesoDatos;
 
-using Microsoft.Extensions.DependencyInjection;
-
 using AccesoDatos.Conexiones;
 using AccesoDatos.DBConfig;
+using Microsoft.Extensions.DependencyInjection;
 
 public static class ServiceCollectionExtension
 {
