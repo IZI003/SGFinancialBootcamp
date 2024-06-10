@@ -1,12 +1,16 @@
-﻿using AccesoDatos;
-using Comunes.Respuesta;
-using Cuenta.Modelos;
-using Cuenta.Servicios.Interfaces;
-using Dapper;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+
+using Dapper;
+
+using Microsoft.IdentityModel.Tokens;
+
+using AccesoDatos;
+using Comunes.Respuesta;
+
+using Cuenta.Modelos;
+using Cuenta.Servicios.Interfaces;
 
 namespace Cuenta.Servicios;
 
@@ -81,7 +85,8 @@ public class LoginService : ILogin
         try
         {
             using var con = bd.ObtenerConexion();
-            await con.QueryAsync($"Insert into usuario ( nombre,usuario,password) values ({entradaUsuario.nombre},{entradaUsuario.usuario}, {entradaUsuario.password})");
+            var query = "INSERT INTO usuario ( nombre,usuario,password) VALUES (@nombre,@usuario, @password)";
+            await con.QueryAsync(query,  new { entradaUsuario.nombre, entradaUsuario.usuario, entradaUsuario.password });
 
             return new RespuestaBD("OK");
         }
@@ -90,68 +95,4 @@ public class LoginService : ILogin
             return new RespuestaBD($"ERROR|Error al Crear al Usuario. {ex.Message}");
         }
     }
-
-    //public async Task<SalidaLogin> validarToken(ClaimsIdentity claimsIdentity)
-    //{
-    //    var salida = new SalidaLogin();
-    //    try
-    //    {
-    //        if (claimsIdentity.Claims.Any())
-    //        {
-    //            salida.respuestaBD = new RespuestaBD($"ERROR|Error al Crear la Operación.");
-
-    //            return salida;
-    //        }
-
-    //        var idUser = claimsIdentity.Claims.FirstOrDefault(X=> X.Type == "id_usuario").Value;
-
-    //        var query = @"SELECT id_usuario, nombre, usuario, password
-    //                                FROM usuario 
-    //                                WHERE id_usuario = @idUser";
-
-    //        using var con = bd.ObtenerConexion();
-    //        var user = await con.QueryFirstOrDefaultAsync<Usuario>(query, new { idUser });
-
-    //        if (user == null)
-    //        {
-    //            salida.respuestaBD = new RespuestaBD($"ERROR|Error Las Credenciales ingresadas no son correctas");
-
-    //            return salida;
-    //        }
-
-    //        var jwt = config.GetSection("Jwt").Get<JWTDto>();
-    //        var claims = new[]
-    //                        {
-    //                            new Claim(JwtRegisteredClaimNames.Sub, jwt.Subject.ToString()),
-    //                            new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-    //                            new Claim(JwtRegisteredClaimNames.Iat, DateTime.UtcNow.ToString()),
-    //                            new Claim("id_usuario", user.id_usuario.ToString()),
-    //                            new Claim("nombre", user.nombre),
-    //                        };
-
-    //        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Key));
-    //        var Signin = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
-    //        var token = new JwtSecurityToken(//issuer: jwt.Issuer,
-    //                                         //audience: jwt.Audience,
-    //                                         claims: claims,
-    //                                         expires: DateTime.UtcNow.AddMinutes(jwt.expiracion),
-    //                                         signingCredentials: Signin);
-
-    //        salida.usuario = new UsuarioLogin
-    //        {
-    //            id_usuario = user.id_usuario,
-    //            nombre = user.nombre,
-    //            token = new JwtSecurityTokenHandler().WriteToken(token)
-    //        };
-
-    //        salida.respuestaBD = new RespuestaBD("OK");
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        salida.respuestaBD = new RespuestaBD($"ERROR|Error al Realizar el login. {ex.Message}");
-    //    }
-
-    //    return salida;
-    //}
 }

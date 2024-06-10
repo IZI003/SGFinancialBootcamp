@@ -1,9 +1,11 @@
-﻿using Comunes.Config;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+
+using Comunes.Config;
 using Comunes.Respuesta;
+
 using Cuenta.Modelos;
 using Cuenta.Servicios.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Cuenta.Controllers
 {
@@ -59,6 +61,11 @@ namespace Cuenta.Controllers
                 return response.ObtenerResult();
             }
 
+            if (!salida.listaConceptos.Any())
+            {
+                return NoContent();
+            }
+
             response.Resultado.Datos = salida.listaConceptos;
 
             return Ok(response);
@@ -75,6 +82,11 @@ namespace Cuenta.Controllers
                 response.Resultado.AgregarError(GestionErrores.C_Men_1000, 400, mensaje: salida.RespuestaBD.Mensaje, codigoInterno: GestionErrores.C_Cod_1000);
 
                 return response.ObtenerResult();
+            }
+
+            if (!salida.Operaciones.Any())
+            {
+                return NoContent();
             }
 
             response.Resultado.Datos = salida.Operaciones;

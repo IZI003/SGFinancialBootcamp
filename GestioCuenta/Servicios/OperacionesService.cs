@@ -1,9 +1,11 @@
-﻿using AccesoDatos;
+﻿using Dapper;
+
+using AccesoDatos;
 using Comunes.Parametros;
 using Comunes.Respuesta;
+
 using Cuenta.Modelos;
 using Cuenta.Servicios.Interfaces;
-using Dapper;
 
 namespace Cuenta.Servicios;
 
@@ -74,7 +76,7 @@ public class OperacionesService : IOperacion
             {
                 transaction.Rollback();
 
-                return new RespuestaBD("Error|Existen problemas al Crear Operacion");
+                return new RespuestaBD($"Error|Existen problemas al Crear Operacion. {ex.Message}");
             }
 
             salida = new RespuestaBD("OK");
@@ -122,7 +124,7 @@ public class OperacionesService : IOperacion
         var salida = new SalidaOperacionesCuenta();
         try
         {
-            var query = @"SELECT op.id_operacion,op.monto,concep.descripcion  as n_concepto, op.id_cuenta as cuenta ,op.fecha
+            var query = @"SELECT op.id_operacion,op.monto,concep.descripcion, op.id_cuenta as cuenta ,op.fecha
                             FROM operacion op
                             INNER JOIN concepto concep on (concep.id_concepto = op.id_concepto)
                             WHERE op.id_cuenta = @idCuenta";

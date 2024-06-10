@@ -18,8 +18,7 @@ public class OperacionesCuenta
 {
     public int id_operacion { get; set; }
     public decimal monto { get; set; }
-    public int tipo_operacion { get; set; }
-    public string n_concepto { get; set; }
+    public string descripcion { get; set; }
     public DateTime fecha { get; set; }
-    public int id_cuenta { get; set; }
+    public int cuenta { get; set; }
 }

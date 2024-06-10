@@ -10,3 +10,15 @@ C:\Users\herny\Documents\Proyecto Emprender\SGFinancial\AccesoDatos\obj\Debug\ne
 C:\Users\herny\Documents\Proyecto Emprender\SGFinancial\AccesoDatos\obj\Debug\net6.0\refint\AccesoDatos.dll
 C:\Users\herny\Documents\Proyecto Emprender\SGFinancial\AccesoDatos\obj\Debug\net6.0\AccesoDatos.pdb
 C:\Users\herny\Documents\Proyecto Emprender\SGFinancial\AccesoDatos\obj\Debug\net6.0\ref\AccesoDatos.dll
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\bin\Debug\net6.0\AccesoDatos.deps.json
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\bin\Debug\net6.0\AccesoDatos.dll
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\bin\Debug\net6.0\AccesoDatos.pdb
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\obj\Debug\net6.0\AccesoDatos.csproj.AssemblyReference.cache
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\obj\Debug\net6.0\AccesoDatos.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\obj\Debug\net6.0\AccesoDatos.AssemblyInfoInputs.cache
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\obj\Debug\net6.0\AccesoDatos.AssemblyInfo.cs
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\obj\Debug\net6.0\AccesoDatos.csproj.CoreCompileInputs.cache
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\obj\Debug\net6.0\AccesoDatos.dll
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\obj\Debug\net6.0\refint\AccesoDatos.dll
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\obj\Debug\net6.0\AccesoDatos.pdb
+C:\Users\herny\Documents\Proyecto Emprender\SGFinancialBootcamp\AccesoDatos\obj\Debug\net6.0\ref\AccesoDatos.dll

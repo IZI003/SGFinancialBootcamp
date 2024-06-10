@@ -1,9 +1,12 @@
-﻿using AccesoDatos;
+﻿using System.Data;
+
+using Dapper;
+
+using AccesoDatos;
 using Comunes.Respuesta;
+
 using Cuenta.Modelos;
 using Cuenta.Servicios.Interfaces;
-using Dapper;
-using System.Data;
 
 namespace Cuenta.Servicios;
 
@@ -24,14 +27,9 @@ public class CuentasService : ICuenta
                         FROM cuenta WHERE id_cuenta = @idCuenta";
 
             using var con = bd.ObtenerConexion();
-            salida.saldo = (SaldoDto?)await con.QueryAsync<SaldoDto>(query, new { idCuenta });
+            var saldoDto= await con.QueryAsync<SaldoDto>(query, new { idCuenta });
 
-            if (salida.saldo == null)
-            {
-                salida.RespuestaBD = new RespuestaBD("ERROR|Error al consultar la Cuentas.Cuenta invalida.");
-
-                return salida;
-            }
+            salida.saldo = saldoDto?.FirstOrDefault();
 
             salida.RespuestaBD = new RespuestaBD("OK");
 
@@ -59,34 +57,22 @@ public class CuentasService : ICuenta
                 return salida;
             }
 
-            var query = @"SELECT c.id_cuenta, c.saldo, c.id_usuario, total.saldoTotal
-                            FROM cuenta c
-                            JOIN (
-                                SELECT id_usuario, SUM(saldo) as saldoTotal
-                                FROM cuenta
-                                WHERE id_usuario = 1
-                                GROUP BY id_usuario
-                            ) as total ON c.id_usuario = total.id_usuario
-                            WHERE c.id_usuario = @idUsuario";
+            var query = @"SELECT id_cuenta as cuenta, saldo, id_usuario
+                            FROM cuenta 
+                            WHERE id_usuario = @idUsuario";
 
             var saldodb = await con.QueryAsync<SaldoBD>(query, new { idUsuario });
 
-            if (!saldodb.Any())
+            salida.saldoTotal = new SaldoTotal
             {
-                salida.RespuestaBD = new RespuestaBD("ERROR|Error al consultar saldos. No existen cuentas");
-
-                return salida;
-            }
-            salida.saldoTotal = new SaldoTotal();
-            salida.saldoTotal.cuentas = (from s in saldodb
-                                         select new SaldoDto
-                                         {
-                                             Cuenta = s.Cuenta,
-                                             Saldo = s.Saldo
-                                         }).ToList();
-
-            salida.saldoTotal.saldoTotal = saldodb.FirstOrDefault().saldoTotal;
-
+                cuentas = saldodb.Select(s => new SaldoDto
+                {
+                    Cuenta = s.Cuenta,
+                    Saldo = s.Saldo
+                }).ToList(),
+                saldoTotal = saldodb.Sum(s => s.Saldo)
+            };
+           
             salida.RespuestaBD = new RespuestaBD("OK");
 
             return salida;

@@ -1,11 +1,11 @@
-﻿using Comunes.Config;
-using Comunes.Respuesta;
-using Cuenta.Modelos;
-using Cuenta.Servicios.Interfaces;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Comunes.Config;
+using Comunes.Respuesta;
+
+using Cuenta.Modelos;
+using Cuenta.Servicios.Interfaces;
 
 namespace Cuenta.Controllers
 {
@@ -24,7 +24,6 @@ namespace Cuenta.Controllers
         public async Task<IActionResult> GetLogin([FromBody] EntradaLogin entradaLogin)
         {
             var response = new RespuestaApi<UsuarioLogin>();
-
             var salida = await loginService.login(entradaLogin);
 
             if (!salida.respuestaBD.Ok)
@@ -35,6 +34,7 @@ namespace Cuenta.Controllers
             }
 
             response.Resultado.Datos = salida.usuario;
+
             return Ok(response);
         }
 
@@ -43,7 +43,6 @@ namespace Cuenta.Controllers
         public async Task<IActionResult> CrearUsuario([FromBody] EntradaUsuario entradaUsuario)
         {
             var response = new RespuestaApi<RespuestaBD>();
-
             var salida = await loginService.CrearUsuario(entradaUsuario);
 
             if (!salida.Ok)
